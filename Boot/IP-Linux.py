@@ -6,7 +6,7 @@ import EMail
 Target = "maturaarbeit17@gmail.com"
 Subject = "RobotBot: Notification"
 
-os.system("hostname -I > IP-Address.txt")
+os.system("hostname -I > IP-Address")
 
 file = open("IP-Address", "rt")
 IP = file.read()
