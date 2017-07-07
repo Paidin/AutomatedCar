@@ -25,3 +25,5 @@ while True :
 	entfernung = ((ende - start) * 34300) / 2 
 	print("Entfernung:", entfernung , "cm") 
 	time.sleep (0.5)
+	
+GPIO.cleanup()
