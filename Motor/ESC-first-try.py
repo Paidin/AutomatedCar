@@ -9,29 +9,29 @@ https://sourceforge.net/p/raspberry-gpio-python/wiki/PWM/
 import RPi.GPIO as gpio
 from time import sleep
 
-# RaspberryPi GPIO-Pin
-ESC = 5
+# RaspberryPi Pin 5, GPIO3
+ESC = 3
 
-gpio.setmode(GPIO, BOARD)
-GPIO.setup(5, GPIO.OUT)
+gpio.setmode(gpio.BOARD)
+gpio.setup(ESC, gpio.OUT)
 
-# nach Anleitung ESC und viel gutem Willen
-def calibrate(min, neutral, max):
+# nach Anleitung ESC und mit viel gutem Willen
+def calibrate(Min, Neutral, Max):
 	print("Motorkabel entfernen und ausschalten")
 	input("Enter to continue >>> ")
 	pwm = gpio.pwm(ESC, 50.0)
-	pwm.start(neutral)
+	pwm.start(Neutral)
 	
 	print("Einschalten und Set Knopf drücken")
 	print("LED blinkt Rot-Grün-Orange-Rot")
 	print("Set Knopf freigeben wenn LED rot leuchtet")
 	print("Wenn nun LED rot blinkt fortfahren")
 	input("Enter to continue >>> ")
-	pwm.ChangeDutyCycle(max)
+	pwm.ChangeDutyCycle(Max)
 	
 	print("Set Knop einmal drücken, LED blinkt nun zweifach")
 	input("Enter to continue >>> ")
-	pwm.ChangeDutyCycle(min)
+	pwm.ChangeDutyCycle(Min)
 	
 	print("Set Knop einmal drücken, LED geht aus")
 	input("Enter to continue >>> ")
