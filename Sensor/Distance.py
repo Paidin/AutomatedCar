@@ -28,20 +28,27 @@ Hinweise zur RPi Bibliothek
 
 import RPi.GPIO as gpio
 import time
-   
-# Trigger Pin-Nummer
-trig = 11
-# Echo Pin-Nummer
-echo = 12
-    
-# Nummeriere nach Pin-Nummer
-gpio.setmode(gpio.BOARD)
-    
-# Definiere Pin-Setup
-gpio.setup(trig, gpio.OUT)
-gpio.setup(echo, gpio.IN)
 
+# Initialisiere GPIO-Pins
+def initPins():
+    # Trigger Pin-Nummer
+    trig = 11
+    # Echo Pin-Nummer
+    echo = 12
+    
+    # Nummeriere nach Pin-Nummer
+    gpio.setmode(gpio.BOARD)
+    
+    # Definiere Pin-Setup
+    gpio.setup(trig, gpio.OUT)
+    gpio.setup(echo, gpio.IN)
 
+    
+# Zurücksetzen der GPIO-Pins
+def clearPins():
+    gpio.cleanup()
+
+    
 # Funktiuon um einen 10 Mikrosekunden langen Schallimpuls zu senden
 def sendTriggerPulse():
     # Setze Output auf HIGH
@@ -51,7 +58,7 @@ def sendTriggerPulse():
     # Setze Output auf LOW
     gpio.output(trig, False)
 
-
+    
 # Funktion um mit dem Ultraschallsensor die Distanz zu einem Objekt zu bestimmen
 def getDistance():
     # Sende Impuls
@@ -67,13 +74,13 @@ def getDistance():
     return distance
 
 
-try:
-    while True:
-        print("Distance: %.2f cm" % (getDistance()))
-        time.sleep(2)
-except KeyboardInterrupt:
-    print("Program closed")
-
-# Zurücksetzen der GPIO-Pins
-gpio.cleanup()
+if __name__=="__main__":
+    initPins()
+    try:
+        while True:
+            print("Distance: %.2f cm" % (getDistance()))
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Program closed")
+    clearPins()
 
