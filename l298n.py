@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 # -*- coding : utf -8 -* 
-# Teil 1 des Codes
 
 from time import sleep 
 import RPi.GPIO as GPIO 
@@ -21,7 +20,7 @@ EnableA = 13
 EnableB = 15 
 Input1 = 3 
 Input2 = 5 
-Input3 = 7 zzzzzzhzhzh
+Input3 = 7
 Input4 = 11
 
 # Alle genutzten GPIO-Pins als Ausgang deklarieren.
@@ -75,9 +74,9 @@ try:
 			GPIO.output(EnableB, False) 
 			GPIO.output(Input4, False)
 			
-	# beim Programmende durch Strg+C wird "all_off" ausgeführt
-	except KeyboardInterrupt : 
-		all_off()
+# beim Programmende durch Strg+C wird "all_off" ausgeführt
+except KeyboardInterrupt : 
+	all_off()
 			
 			
 			
