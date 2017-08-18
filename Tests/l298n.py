@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding : utf -8 -* 
+# Quelle: RaspberryPi, das umfassende Handbuch (Kofler, Kühnast, Scherbeck)
 
 from time import sleep 
 import RPi.GPIO as GPIO 
