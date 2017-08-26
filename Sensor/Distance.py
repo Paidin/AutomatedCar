@@ -79,7 +79,7 @@ def getDistance():
         return None
     return distance
 
-# mTeste die Funktionen
+# Teste die Funktionen
 if __name__=="__main__":
     initPins()
     try:
