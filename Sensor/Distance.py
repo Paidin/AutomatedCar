@@ -22,7 +22,7 @@ Hinweise zur RPi Bibliothek
   - Abwarten einer Zustandsänderung an den GPIO-Pins
     gpio.wait_for_edge(pin, [gpio.RISING, gpio.FALLING, gpio.BOTH], timeout=milliseconds)
 
-  - Dokumentation der RPi Bibliothek und Download
+  - Dokumentation der RPi Bibliothek
     https://sourceforge.net/p/raspberry-gpio-python/wiki/Examples/   
 """
 
@@ -32,8 +32,10 @@ import time
 # Initialisiere GPIO-Pins
 def initPins():
     # Trigger Pin-Nummer
+    global trig
     trig = 11
     # Echo Pin-Nummer
+    global echo
     echo = 12
     
     # Nummeriere nach Pin-Nummer
@@ -71,16 +73,25 @@ def getDistance():
     end = time.time()
     # Berechne Distanz in cm aus der vergangenen Zeit
     distance = (end-start) * 34300 / 2.0
+    
+    # Werte über 17'000 cm können ignoriert werden (Timeout)
+    if distance > 17000:
+        return None
     return distance
 
-
+# mTeste die Funktionen
 if __name__=="__main__":
     initPins()
     try:
         while True:
-            print("Distance: %.2f cm" % (getDistance()))
+            distance = getDistance()
+            if distance != None:
+                print("Distance: %.2f cm" % distance)
+            else:
+                print("Error - Signalverlust")
             time.sleep(1)
     except KeyboardInterrupt:
         print("Program closed")
     clearPins()
+
 
