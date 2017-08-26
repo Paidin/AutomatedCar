@@ -23,16 +23,26 @@ print("Messdaten [cm]: ", file=Log)
 # erste Messung erhält nie eine brauchbare Antwort des Sensors
 initPins()
 getDistance()
+# Nach 25.08.17 eigentlich nicht nötig, da Timeouts ignoriert => return None
 
 # Führe die Messreihe aus
 data = []
+timeouts = 0
 for i in range(0, 30):
     distance = getDistance()
-    print("%.4f" % distance, file=Log)
-    data.append(distance)
+    # Wenn kein timeout erfolgte, benutze dieses Messergebnis
+    if distance != None:
+        # print("%.4f" % distance)
+        print("%.4f" % distance, file=Log)
+        data.append(distance)
+    # Stelle sicher, dass 30 Werte in der Messreihe sind
+    else:
+        i -= 1
+        timeouts += 1
     time.sleep(1)
     
 # Beende die Messungen
+print("Timeouts: " + str(timeouts), file=Log)
 clearPins()
 Log.close()
 
@@ -43,8 +53,11 @@ print("\n===========================================")
 print("Zusammenfassung der Messdaten\n")
 print("Sensorhöhe [cm]:", height)
 print("Soll-Abstand [cm]:", tgtDistance)
+print("Anzahl Timeouts: ", timeouts)
 print("Median der Messreihe [cm]:", median)
 print("Abweichung vom Soll [cm]:", offset)
 print("Abweichung vom Soll  [%]:", offset/tgtDistance*100)
 print("===========================================")
+    
+
     
