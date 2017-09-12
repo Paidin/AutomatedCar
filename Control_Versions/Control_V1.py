@@ -1,53 +1,28 @@
+"""
+	Skript um Entfernungsmessungen und Motorgeschwindigkeit zu kombinieren
+"""
+
+
 import RPi.GPIO as GPIO
 import time
- 
-pin = 40 
 
- 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(pin, GPIO.OUT)
+# Modul als Klasse schreiben ???
+import Distance
+import MotorFunctions as Motor
 
-pwm = GPIO.PWM(pin, 500)
-pwm.start(0)
+# Konstante zur Anpassung des Tastgrads
+x = 1
 
-dutyCycle = 0
-pwm.ChangeDutyCycle(float(dutyCycle))
-input("Press Enter to start >> ")
+Motor.initMotor()
+Distance.initPins()
+Distance.getDistance()
 
-checker = true
-distance1 = 1.0
-distance2 = 1.0
-x = 1.0 # Auswechseln durch Geschwindigkeit/DutyCycle Konstante
+Motor.maxVelocity = 30
+Motor.changeVelocity(float(0))
+input("Press Enter to continue >> ")
 
-def initPins():
-    # Trigger Pin-Nummer
-    global trig
-    trig = 11
-    # Echo Pin-Nummer
-    global echo
-    echo = 12
-    
-def sendTriggerPulse():
-    # Setze Output auf HIGH
-    gpio.output(trig, True)
-    # Warte 10 Mikrosekunden (Impulsdauer)
-    time.sleep(0.0001)   
-    # Setze Output auf LOW
-    gpio.output(trig, False)
-    
-def getDistance():
-    # Sende Impuls
-    sendTriggerPulse()
-    # Warte maximal 1 Sekunde auf Beginn der Antwort
-    gpio.wait_for_edge(echo, gpio.RISING, timeout=1000)
-    start = time.time()
-    # Warte maximal 1 Sekunde auf Ende der Antwort
-    gpio.wait_for_edge(echo, gpio.FALLING, timeout=1000)
-    end = time.time()
-    # Berechne Distanz in cm aus der vergangenen Zeit
-    distance = (end-start) * 34300 / 2.0
-    
-
+"""
+# alter Code, ohne Verwendung unserer Funktionen in Distance.py und MotorFunctions.py
 try:
 	while checker == true
 		distance1 = getDistance()
@@ -59,10 +34,28 @@ try:
 		if dutyCycle = 0
 			checker = false
 		pwm.ChangeDutyCycle(float(dutyCycle))
+"""
+
+# neuer Code
+try:
+	while True:
+		dist1 = Distance.getDistance()
+		t1 = time.time()
+		time.sleep(0.01)
+		dist2 = Distance.getDistance()
+		t2 = time.time()
 		
+		if dist1 == None or dist2 == None:
+			continue
+		
+		# Mathematik dahinter überprüfen bitte :)
+		speed = ((dist1 - dist2) / (t1 - t2))*x
+		Motor.changeVelocity(float(speed))
+		
+			
+except:
+	print("Ok, something went wrong...")
+
 finally:
-	for dutyCycle in range(50, -1, -1):
-    	pwm.ChangeDutyCycle(dutyCycle)
-    	time.sleep(0.01)
-	# stoppe pwm
-	pwm.stop()
+	Motor.changeVelocity(float(0))
+	Motor.stopMotor()
