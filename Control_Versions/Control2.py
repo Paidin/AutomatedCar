@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 	Skript um Entfernungsmessungen und Motorgeschwindigkeit zu kombinieren
 	Änderung der Geschwindigkeit in Abängigkeit des Abstandes zum Hindernis
