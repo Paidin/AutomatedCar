@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+    In der Entwicklungsphase
+    Skript zur Anpassung der Geschwindigkeit des Motors in Abhängigkeit
+    zur Entfernung des vorausfahrenden Fahrzeuges
+    als Klasse mit umstrukturiert
+"""
+
+import time
+import Sensor
+import Motor
+
+# Global bekannte Variable
+StopCruiseControl = False
+
+
+class Cruise:
+    # Initialisiere Sensor und Motor
+    def __init__(self, tgtDistance, maxMotor):
+        # Ziel-Entfernung, die eingehalten werden soll
+        self.tgtDistance = tgtDistance
+        
+        # Initialisiere Ultraschallsensor
+        self.sensor = Sensor.Sensor()
+        self.sensor.getDistance()
+        
+        # Initialisiere Motor mit maximalem Tastgrad von maxMotor (empfohlen: 30%)
+        self.motor = Motor.Motor(maxMotor)
+        self.motor.changeSpeed(int(0))
+        
+    # Führe den Prozess der adaptiven Geschwindigkeitskontrolle aus
+    def mainloop(self):
+        try:
+            errors = 0
+            while not StopCruiseControl:
+                # Ermittle Entfernung zum Hindernis
+                dist = self.sensor.getDistance()
+                time.sleep(0.01)
+        
+                # Ignoriere ungültige Messungen
+                if dist is None:
+                    errors += 1
+                    if errors == 20:
+                        print("Systems are not properly working")
+                        print("Car stopped for safety reasons")
+                        self.motor.stop()
+                        break
+                    continue
+                errors = 0
+                
+            # absolute und prozentuale Abweichung
+            #absDev = dist - tgtDistance
+            #deviation = absDev/tgtDistance
+         
+            # Änderung der Geschwindigkeit
+            if dist > self.tgtDistance:
+                self.motor.changeSpeed(int(5))
+            if dist < self.tgtDistance:
+                self.motor.changeSpeed(int(-5))
+        except:
+            print("Ok, something went wrong...")
+            print("or someone pressed ^C")
+        finally:
+            self.motor.setSpeed(int(0))
+            
+    # Beende die Pulsweitenmodulation
+    def close(self):
+        self.motor.setSpeed(int(0))
+        self.motor.stop()
+        print("Cruise Control stopped. Engine is off")
+        
+    # Funktionen um denselben Motor ausserhalb dieser Klasse zu benutzen
+    def getMotor(self):
+        return self.motor
+    def setMotor(self, motor):
+        self.motor = motor
+   
+    
+# Testprogramm 
+if __name__ == "__main__":
+    ACC = Cruise(30, 30)
+    ACC.mainloop()
+    ACC.close()
