@@ -63,7 +63,7 @@ if __name__ == "__main__":
             else:
                 print("Error - Messwert zu gross")
             # Sensor kann alle 20 ms neue Messung beginnen
-            time.sleep(0.01)
+            time.sleep(0.02)
             
     except KeyboardInterrupt:
         print("Program closed")
