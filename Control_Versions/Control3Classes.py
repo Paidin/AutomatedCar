@@ -48,7 +48,7 @@ except:
     print("or someone pressed ^C")
     
 finally:
-    motor.stopMotor()
+    motor.stop()
         
 
 
