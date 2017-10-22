@@ -29,7 +29,7 @@ try:
     while True:
         # Ermittle Entfernung zum Hindernis
         dist = sensor.getDistance()
-        time.sleep(0.01)
+        time.sleep(0.02)
         
         # Ignoriere ungültige Messungen
         if dist is None:
@@ -44,8 +44,7 @@ try:
         pass
     
 except:
-    print("Ok, something went wrong...")
-    print("or someone pressed ^C")
+    print("Ok, something went wrong or someone pressed ^C")
     
 finally:
     motor.stop()
