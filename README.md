@@ -14,6 +14,6 @@ sowie die Entwicklung von Sensorik und Aktorik zur Kontrolle des Fahrzeuges ware
 standteil dieser Arbeit. Ebenso gehörte das Erlernen der Programmiersprache Python dazu,
 in welcher das Programm zur Geschwindigkeitsregulierung geschrieben wurde. Nach einigen Rückschlägen
 konnte die Funktionsfähigkeit unseres automatisierten Fahrzeuges in praktischen Tests bewiesen und unsere
-Versuche mit Erfolg gekrönt werden. Abschliessend werden noch Möglichkeiten zur weiteren Verbesserungen
+Versuche mit Erfolg gekrönt werden. Abschliessend werden noch Möglichkeiten zu weiteren Verbesserungen
 des automatisierten Fahrzeuges diskutiert. 
 
