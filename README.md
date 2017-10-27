@@ -5,6 +5,7 @@ Single-Board-Computers für ein Elektrofahrzeug auf flacher Strecke
 
 
 
+
 *Abstract*
 
 Ziel dieser Arbeit war es, eine adaptive Geschwindigkeitskontrolle für ein Elektrofahrzeug
