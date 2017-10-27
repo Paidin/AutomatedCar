@@ -4,7 +4,9 @@ einer adaptiven Geschwindigkeitskontrolle mittels eines
 Single-Board-Computers für ein Elektrofahrzeug auf flacher Strecke
 
 
-*Abstract*
+
+*Abstract
+
 Ziel dieser Arbeit war es, eine adaptive Geschwindigkeitskontrolle für ein Elektrofahrzeug
 mithilfe des Single-Board-Computers RaspberryPi zu entwickeln. Der Zusammenbau des Fahrzeuges,
 sowie die Entwicklung von Sensorik und Aktorik zur Kontrolle des Fahrzeuges waren ein wichtiger Be-
